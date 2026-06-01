@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Connect</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="app-header">
+        <a class="brand" href="#top" aria-label="Campus Connect home">
+            <span class="brand-mark">CC</span>
+            <span>Campus Connect</span>
+        </a>
+        <nav class="nav-links" aria-label="Primary navigation">
+            <a href="#clubs">Clubs</a>
+            <a href="#events">Events</a>
+            <a href="#announcements">Announcements</a>
+            <a href="#attendance">Attendance</a>
+        </nav>
+    </header>
+
+    <main id="top">
+        <section class="hero">
+            <div class="hero-copy">
+                <h1>Campus Connect Dashboard</h1>
+            </div>
+            <div class="hero-panel">
+                <div>
+                    <span id="clubCount">0</span>
+                    <p>Clubs</p>
+                </div>
+                <div>
+                    <span id="eventCount">0</span>
+                    <p>Events</p>
+                </div>
+                <div>
+                    <span id="announcementCount">0</span>
+                    <p>Announcements</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="auth-grid">
+            <article class="panel auth-card">
+                <div class="section-heading">
+                    <div>
+                        <p class="section-kicker">Access</p>
+                        <h2>Create account</h2>
+                    </div>
+                    <span class="route-pill">POST /register</span>
+                </div>
+                <form id="signupForm" class="form-grid">
+                    <label for="signupName">Name</label>
+                    <input id="signupName" name="name" type="text" placeholder="Your name" required>
+
+                    <label for="signupEmail">Email</label>
+                    <input id="signupEmail" name="email" type="email" placeholder="you@campus.edu" required>
+
+                    <label for="signupPassword">Password</label>
+                    <input id="signupPassword" name="password" type="password" placeholder="Minimum 6 characters" required>
+
+                    <label for="signupRole">Role</label>
+                    <select id="signupRole" name="role">
+                        <option value="student">Student</option>
+                        <option value="leader">Leader</option>
+                        <option value="admin">Admin</option>
+                    </select>
+
+                    <button type="submit">Sign up</button>
+                </form>
+            </article>
+
+            <article class="panel auth-card highlight-card">
+                <div class="section-heading">
+                    <div>
+                        <p class="section-kicker">Session</p>
+                        <h2>Login</h2>
+                    </div>
+                    <span class="route-pill">POST /login</span>
+                </div>
+                <form id="loginForm" class="form-grid">
+                    <label for="loginEmail">Email</label>
+                    <input id="loginEmail" name="email" type="email" placeholder="you@campus.edu" required>
+
+                    <label for="loginPassword">Password</label>
+                    <input id="loginPassword" name="password" type="password" placeholder="Your password" required>
+
+                    <button type="submit">Login</button>
+                </form>
+                <div class="session-box">
+                    <p id="sessionStatus">Not logged in</p>
+                    <button id="logoutButton" class="ghost-button" type="button">Logout</button>
+                </div>
+            </article>
+        </section>
+
+        <section class="workspace">
+            <article id="clubs" class="panel">
+                <div class="section-heading">
+                    <div>
+                        <p class="section-kicker">Clubs</p>
+                        <h2>Club directory</h2>
+                    </div>
+                    <button id="refreshButton" class="ghost-button" type="button">Refresh</button>
+                </div>
+                <form id="clubForm" class="inline-form">
+                    <input name="name" type="text" placeholder="Club name" required>
+                    <input name="description" type="text" placeholder="Description">
+                    <button type="submit">Create</button>
+                </form>
+                <div id="clubList" class="card-list"></div>
+            </article>
+
+            <article id="events" class="panel">
+                <div class="section-heading">
+                    <div>
+                        <p class="section-kicker">Events</p>
+                        <h2>Upcoming events</h2>
+                    </div>
+                    <span class="route-pill">GET /events</span>
+                </div>
+                <form id="eventForm" class="form-grid compact-form">
+                    <input name="title" type="text" placeholder="Event title" required>
+                    <input name="date" type="date" required>
+                    <input name="time" type="text" placeholder="Time">
+                    <input name="location" type="text" placeholder="Location">
+                    <input name="club" type="text" placeholder="Club">
+                    <textarea name="description" rows="3" placeholder="Description"></textarea>
+                    <button type="submit">Create event</button>
+                </form>
+                <div id="eventList" class="card-list"></div>
+            </article>
+        </section>
+
+        <section class="workspace lower-workspace">
+            <article id="announcements" class="panel">
+                <div class="section-heading">
+                    <div>
+                        <p class="section-kicker">News</p>
+                        <h2>Announcements</h2>
+                    </div>
+                    <span class="route-pill">GET /announcements</span>
+                </div>
+                <form id="announcementForm" class="form-grid compact-form">
+                    <input name="title" type="text" placeholder="Announcement title" required>
+                    <input name="club" type="text" placeholder="Club or General">
+                    <textarea name="content" rows="4" placeholder="Write announcement..." required></textarea>
+                    <button type="submit">Post announcement</button>
+                </form>
+                <div id="announcementList" class="card-list"></div>
+            </article>
+
+            <article id="attendance" class="panel">
+                <div class="section-heading">
+                    <div>
+                        <p class="section-kicker">Tracking</p>
+                        <h2>Attendance</h2>
+                    </div>
+                    <span class="route-pill">GET /attendance</span>
+                </div>
+                <form id="attendanceForm" class="form-grid compact-form">
+                    <input name="event_id" type="text" placeholder="Event ID" required>
+                    <input name="student_email" type="email" placeholder="student@campus.edu" required>
+                    <input name="date" type="date">
+                    <select name="status">
+                        <option value="present">Present</option>
+                        <option value="absent">Absent</option>
+                    </select>
+                    <button type="submit">Mark attendance</button>
+                </form>
+                <div class="filter-row">
+                    <input id="attendanceEventFilter" type="text" placeholder="Filter by event ID">
+                    <button id="loadAttendanceButton" class="ghost-button" type="button">Load records</button>
+                </div>
+                <div id="attendanceList" class="card-list"></div>
+            </article>
+        </section>
+    </main>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <script src="script.js"></script>
+</body>
+</html>
