@@ -5,7 +5,10 @@ from services.event_service import (
     create_event_service,
     get_event_service,
     get_events_service,
+    get_my_registrations_service,
+    get_registration_requests_service,
     register_for_event_service,
+    update_registration_status_service,
 )
 
 events_bp = Blueprint("events_bp", __name__)
@@ -105,9 +108,35 @@ def register_for_event(event_id):
 
     response, status = register_for_event_service(
         event_id,
-        request.user_email
+        request.user_email,
+        request.json or {},
     )
 
+    return jsonify(response), status
+
+
+@events_bp.route("/events/my-registrations", methods=["GET"])
+@token_required
+def get_my_registrations():
+    response, status = get_my_registrations_service(request.user_email)
+    return jsonify(response), status
+
+
+@events_bp.route("/admin/event-registrations", methods=["GET"])
+@token_required
+def get_registration_requests():
+    response, status = get_registration_requests_service(request.user_email)
+    return jsonify(response), status
+
+
+@events_bp.route("/events/<event_id>/registrations/status", methods=["POST"])
+@token_required
+def update_registration_status(event_id):
+    response, status = update_registration_status_service(
+        event_id,
+        request.user_email,
+        request.json,
+    )
     return jsonify(response), status
 
 

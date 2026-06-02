@@ -1,5 +1,6 @@
 import bcrypt
 
+from config import Config
 from database import users_collection
 from models.user_model import create_user
 from utils.jwt_helper import generate_token
@@ -12,7 +13,14 @@ def signup_service(data):
     name = data["name"]
     email = data["email"].lower()
     password = data["password"]
-    role = data.get("role", "student")
+    role = data.get("role", "student").lower()
+
+    if role not in ["student", "leader", "admin"]:
+        return {"error": "Choose a valid account type"}, 400
+
+    if role != "student":
+        if not Config.ADMIN_SIGNUP_CODE or data.get("admin_code") != Config.ADMIN_SIGNUP_CODE:
+            return {"error": "A valid staff access code is required"}, 403
 
     if users_collection.find_one({"email": email}):
         return {"error": "Email already registered"}, 400
@@ -46,8 +54,8 @@ def login_service(data):
         "token": generate_token(user["email"]),
         "role": user["role"],
         "name": user["name"],
+        "email": user["email"],
     }, 200
 
 
 register_service = signup_service
-

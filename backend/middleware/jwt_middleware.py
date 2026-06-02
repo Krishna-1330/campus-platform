@@ -1,17 +1,16 @@
 from functools import wraps
 
-from flask import request, jsonify
-from flask_jwt_extended import verify_jwt_in_request, get_jwt_identity
+from flask import request
+from flask_jwt_extended import get_jwt_identity, verify_jwt_in_request
 
 
-def token_required(fn):
-    @wraps(fn)
+def token_required(route_function):
+    @wraps(route_function)
     def wrapper(*args, **kwargs):
-        try:
-            verify_jwt_in_request()
-            email = get_jwt_identity()
-            request.user_email = email
-            return fn(*args, **kwargs)
-        except Exception as e:
-            return jsonify({"error": "Invalid or missing token", "details": str(e)}), 401
+        verify_jwt_in_request()
+        request.user_email = get_jwt_identity()
+        request.user_id = request.user_email
+        return route_function(*args, **kwargs)
+
     return wrapper
+

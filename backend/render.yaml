@@ -3,6 +3,7 @@ services:
     name: campus-platform
     runtime: python
     plan: free
+    rootDir: backend
     buildCommand: pip install -r requirements.txt
     startCommand: gunicorn app:app
     envVars:
@@ -12,5 +13,7 @@ services:
         value: campus_platform
       - key: JWT_SECRET_KEY
         generateValue: true
+      - key: ADMIN_SIGNUP_CODE
+        sync: false
       - key: JWT_ACCESS_TOKEN_EXPIRES_DAYS
         value: 7
