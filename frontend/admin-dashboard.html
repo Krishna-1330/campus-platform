@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Console | Campusly</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body data-portal="admin">
+    <header class="site-header">
+        <a class="brand" href="/">
+            <span class="brand-mark">C</span>
+            <span>campusly</span>
+        </a>
+        <nav class="desktop-nav">
+            <a href="/">Public website</a>
+            <a href="/#discover">Events</a>
+            <a href="/#updates">Updates</a>
+        </nav>
+        <div class="user-menu">
+            <span id="userInitial" class="avatar">A</span>
+            <span id="headerUserName">Admin</span>
+            <button id="logoutButton" class="text-button" type="button">Logout</button>
+        </div>
+    </header>
+
+    <main class="portal-main section-shell">
+        <section class="admin-heading">
+            <div>
+                <p class="eyebrow">Admin console</p>
+                <h2>Run your campus events</h2>
+                <p>Create listings, upload payment scanners and review student requests.</p>
+            </div>
+            <span class="admin-badge">Admin access</span>
+        </section>
+
+        <section class="admin-layout">
+            <aside class="admin-sidebar">
+                <button class="admin-tab active" data-admin-tab="requests" type="button">Approval queue <span id="requestBadge">0</span></button>
+                <button class="admin-tab" data-admin-tab="create-event" type="button">Create event</button>
+                <button class="admin-tab" data-admin-tab="publish-update" type="button">Publish update</button>
+                <button class="admin-tab" data-admin-tab="create-club" type="button">Add club</button>
+            </aside>
+
+            <div class="admin-workspace">
+                <section class="admin-panel active" data-admin-panel="requests">
+                    <div class="panel-heading">
+                        <div><h3>Registration approvals</h3><p>Verify payments where required, then accept or reject requests.</p></div>
+                        <button id="refreshAdminButton" class="button button-light" type="button">Refresh</button>
+                    </div>
+                    <div id="approvalList" class="approval-list"></div>
+                </section>
+
+                <section class="admin-panel" data-admin-panel="create-event">
+                    <div class="panel-heading"><div><h3>Create a new event</h3><p>Upload your payment scanner directly when registration is paid.</p></div></div>
+                    <form id="eventForm" class="pro-form">
+                        <label>Event title<input name="title" type="text" placeholder="Annual design summit" required></label>
+                        <label>Host club<input name="club" type="text" placeholder="Design Circle"></label>
+                        <label>Category<input name="category" type="text" placeholder="Workshop"></label>
+                        <label>Date<input name="date" type="date" required></label>
+                        <label>Time<input name="time" type="text" placeholder="10:00 AM - 4:00 PM"></label>
+                        <label>Venue<input name="location" type="text" placeholder="Main auditorium"></label>
+                        <label>Capacity<input name="capacity" type="number" min="1" placeholder="120"></label>
+                        <label>Registration type
+                            <select id="registrationMode" name="registration_mode">
+                                <option value="free">Free event</option>
+                                <option value="paid">Paid event</option>
+                            </select>
+                        </label>
+                        <label>Event cover image<input id="eventCoverFile" type="file" accept="image/png,image/jpeg,image/webp"><img id="eventCoverPreview" class="cover-preview hidden" alt="Selected event cover preview"></label>
+                        <label>Or cover image URL<input name="image_url" type="url" placeholder="https://images.unsplash.com/..."></label>
+                        <div id="paymentFields" class="form-subgrid wide hidden">
+                            <label>Ticket price<input name="price" type="number" min="1" placeholder="299"></label>
+                            <label>Payment scanner image<input id="paymentQrFile" type="file" accept="image/png,image/jpeg,image/webp"><img id="paymentQrPreview" class="scanner-preview hidden" alt="Selected payment scanner preview"></label>
+                            <label>Or scanner image URL<input name="payment_qr_url" type="url" placeholder="https://your-image-host.com/scanner.png"></label>
+                        </div>
+                        <label class="wide">Description<textarea name="description" rows="4" placeholder="Tell students why this event deserves a place on their calendar."></textarea></label>
+                        <button class="button button-primary wide" type="submit">Publish event</button>
+                    </form>
+                </section>
+
+                <section class="admin-panel" data-admin-panel="publish-update">
+                    <div class="panel-heading"><div><h3>Publish an announcement</h3><p>Share a clear update with everyone on campus.</p></div></div>
+                    <form id="announcementForm" class="pro-form single-column">
+                        <label>Announcement title<input name="title" type="text" placeholder="Registrations close this Friday" required></label>
+                        <label>Club or group<input name="club" type="text" placeholder="General"></label>
+                        <label>Message<textarea name="content" rows="5" placeholder="Write your announcement..." required></textarea></label>
+                        <button class="button button-primary" type="submit">Publish announcement</button>
+                    </form>
+                </section>
+
+                <section class="admin-panel" data-admin-panel="create-club">
+                    <div class="panel-heading"><div><h3>Add a campus club</h3><p>Make student communities easier to discover.</p></div></div>
+                    <form id="clubForm" class="pro-form single-column">
+                        <label>Club name<input name="name" type="text" placeholder="Creative Coding Club" required></label>
+                        <label>Description<textarea name="description" rows="4" placeholder="What does this club do?"></textarea></label>
+                        <button class="button button-primary" type="submit">Create club</button>
+                    </form>
+                </section>
+            </div>
+        </section>
+    </main>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <script src="dashboard.js"></script>
+</body>
+</html>

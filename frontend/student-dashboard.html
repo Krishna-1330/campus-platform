@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Registrations | Campusly</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body data-portal="student">
+    <header class="site-header">
+        <a class="brand" href="/">
+            <span class="brand-mark">C</span>
+            <span>campusly</span>
+        </a>
+        <nav class="desktop-nav">
+            <a href="/">Discover events</a>
+            <a href="/#clubs">Clubs</a>
+            <a href="/#updates">Updates</a>
+        </nav>
+        <div class="user-menu">
+            <span id="userInitial" class="avatar">S</span>
+            <span id="headerUserName">Student</span>
+            <button id="logoutButton" class="text-button" type="button">Logout</button>
+        </div>
+    </header>
+
+    <main class="portal-main section-shell">
+        <section class="dashboard-banner">
+            <div>
+                <p class="eyebrow">Student dashboard</p>
+                <h2 id="studentGreeting">My registrations</h2>
+                <p>Track every registration request and approval update in one place.</p>
+            </div>
+            <div class="dashboard-metrics">
+                <div><strong id="myRegistrationCount">0</strong><span>Total</span></div>
+                <div><strong id="approvedCount">0</strong><span>Approved</span></div>
+                <div><strong id="pendingCount">0</strong><span>Pending</span></div>
+            </div>
+        </section>
+
+        <section class="portal-section">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">My activity</p>
+                    <h2>Your event journey</h2>
+                    <p>Approved events are confirmed. Pending requests are waiting for admin review.</p>
+                </div>
+                <a class="button button-primary" href="/">Explore more events</a>
+            </div>
+            <div id="myRegistrationList" class="registration-grid"></div>
+        </section>
+    </main>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <script src="dashboard.js"></script>
+</body>
+</html>

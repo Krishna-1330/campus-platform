@@ -3,183 +3,260 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Campus Connect</title>
+    <meta name="description" content="Discover and register for the best events on your campus.">
+    <title>Campusly | Campus Events, Curated</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header class="app-header">
-        <a class="brand" href="#top" aria-label="Campus Connect home">
-            <span class="brand-mark">CC</span>
-            <span>Campus Connect</span>
+    <header class="site-header">
+        <a class="brand" href="#home" aria-label="Campusly home">
+            <span class="brand-mark">C</span>
+            <span>campusly</span>
         </a>
-        <nav class="nav-links" aria-label="Primary navigation">
+        <nav class="desktop-nav" aria-label="Primary navigation">
+            <a href="#discover">Discover</a>
             <a href="#clubs">Clubs</a>
-            <a href="#events">Events</a>
-            <a href="#announcements">Announcements</a>
-            <a href="#attendance">Attendance</a>
+            <a href="#updates">Updates</a>
+            <a class="private-nav hidden" href="/student-dashboard.html">Dashboard</a>
         </nav>
+        <div class="header-actions">
+            <button id="openLoginButton" class="button button-light" type="button">Log in</button>
+            <button id="openSignupButton" class="button button-dark" type="button">Join campusly</button>
+            <div id="userMenu" class="user-menu hidden">
+                <span id="userInitial" class="avatar">S</span>
+                <span id="headerUserName">Student</span>
+                <button id="logoutButton" class="text-button" type="button">Logout</button>
+            </div>
+        </div>
     </header>
 
-    <main id="top">
-        <section class="hero">
+    <main>
+        <section id="home" class="hero section-shell">
             <div class="hero-copy">
-                <h1>Campus Connect Dashboard</h1>
-            </div>
-            <div class="hero-panel">
-                <div>
-                    <span id="clubCount">0</span>
-                    <p>Clubs</p>
+                <p class="eyebrow">Your campus. Your next story.</p>
+                <h1>Find the events that make college <span>unforgettable.</span></h1>
+                <p class="hero-text">From hackathons to open mics, discover what is happening around you and reserve your place in a few clicks.</p>
+                <div class="hero-actions">
+                    <a class="button button-primary" href="#discover">Explore events</a>
+                    <button class="button button-glass" data-open-auth="signup" type="button">Create an account</button>
                 </div>
-                <div>
-                    <span id="eventCount">0</span>
-                    <p>Events</p>
-                </div>
-                <div>
-                    <span id="announcementCount">0</span>
-                    <p>Announcements</p>
+                <div class="hero-trust">
+                    <div class="avatar-stack" aria-hidden="true">
+                        <span>AK</span><span>MS</span><span>RJ</span><span>+</span>
+                    </div>
+                    <p><strong>One place</strong> for every campus moment</p>
                 </div>
             </div>
+            <div class="hero-visual">
+                <img src="https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&w=1100&q=88" alt="Students attending a campus event">
+                <div class="floating-card floating-date">
+                    <span class="mini-label">Coming up</span>
+                    <strong id="heroEventCount">0 events</strong>
+                    <small>Curated for your campus</small>
+                </div>
+                <div class="floating-card floating-status">
+                    <span class="status-dot"></span>
+                    <div><strong>Easy registration</strong><small>Track approvals live</small></div>
+                </div>
+            </div>
         </section>
 
-        <section class="auth-grid">
-            <article class="panel auth-card">
-                <div class="section-heading">
-                    <div>
-                        <p class="section-kicker">Access</p>
-                        <h2>Create account</h2>
-                    </div>
-                    <span class="route-pill">POST /register</span>
-                </div>
-                <form id="signupForm" class="form-grid">
-                    <label for="signupName">Name</label>
-                    <input id="signupName" name="name" type="text" placeholder="Your name" required>
-
-                    <label for="signupEmail">Email</label>
-                    <input id="signupEmail" name="email" type="email" placeholder="you@campus.edu" required>
-
-                    <label for="signupPassword">Password</label>
-                    <input id="signupPassword" name="password" type="password" placeholder="Minimum 6 characters" required>
-
-                    <label for="signupRole">Role</label>
-                    <select id="signupRole" name="role">
-                        <option value="student">Student</option>
-                        <option value="leader">Leader</option>
-                        <option value="admin">Admin</option>
-                    </select>
-
-                    <button type="submit">Sign up</button>
-                </form>
-            </article>
-
-            <article class="panel auth-card highlight-card">
-                <div class="section-heading">
-                    <div>
-                        <p class="section-kicker">Session</p>
-                        <h2>Login</h2>
-                    </div>
-                    <span class="route-pill">POST /login</span>
-                </div>
-                <form id="loginForm" class="form-grid">
-                    <label for="loginEmail">Email</label>
-                    <input id="loginEmail" name="email" type="email" placeholder="you@campus.edu" required>
-
-                    <label for="loginPassword">Password</label>
-                    <input id="loginPassword" name="password" type="password" placeholder="Your password" required>
-
-                    <button type="submit">Login</button>
-                </form>
-                <div class="session-box">
-                    <p id="sessionStatus">Not logged in</p>
-                    <button id="logoutButton" class="ghost-button" type="button">Logout</button>
-                </div>
-            </article>
+        <section class="stat-ribbon section-shell" aria-label="Platform statistics">
+            <div><strong id="eventCount">0</strong><span>Live events</span></div>
+            <div><strong id="clubCount">0</strong><span>Active clubs</span></div>
+            <div><strong id="announcementCount">0</strong><span>Campus updates</span></div>
+            <div><strong>1</strong><span>Connected campus</span></div>
         </section>
 
-        <section class="workspace">
-            <article id="clubs" class="panel">
-                <div class="section-heading">
-                    <div>
-                        <p class="section-kicker">Clubs</p>
-                        <h2>Club directory</h2>
-                    </div>
-                    <button id="refreshButton" class="ghost-button" type="button">Refresh</button>
+        <section id="discover" class="content-section section-shell">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">Discover something new</p>
+                    <h2>Events worth showing up for</h2>
+                    <p>Browse experiences, workshops, competitions and campus celebrations.</p>
                 </div>
-                <form id="clubForm" class="inline-form">
-                    <input name="name" type="text" placeholder="Club name" required>
-                    <input name="description" type="text" placeholder="Description">
-                    <button type="submit">Create</button>
-                </form>
-                <div id="clubList" class="card-list"></div>
-            </article>
-
-            <article id="events" class="panel">
-                <div class="section-heading">
-                    <div>
-                        <p class="section-kicker">Events</p>
-                        <h2>Upcoming events</h2>
-                    </div>
-                    <span class="route-pill">GET /events</span>
-                </div>
-                <form id="eventForm" class="form-grid compact-form">
-                    <input name="title" type="text" placeholder="Event title" required>
-                    <input name="date" type="date" required>
-                    <input name="time" type="text" placeholder="Time">
-                    <input name="location" type="text" placeholder="Location">
-                    <input name="club" type="text" placeholder="Club">
-                    <textarea name="description" rows="3" placeholder="Description"></textarea>
-                    <button type="submit">Create event</button>
-                </form>
-                <div id="eventList" class="card-list"></div>
-            </article>
+                <a class="arrow-link" href="#my-space">Track my registrations <span>&rarr;</span></a>
+            </div>
+            <div class="filter-bar">
+                <label class="search-box">
+                    <span aria-hidden="true">&#8981;</span>
+                    <input id="eventSearch" type="search" placeholder="Search events, clubs or venues">
+                </label>
+                <select id="categoryFilter" aria-label="Filter by category">
+                    <option value="">All categories</option>
+                </select>
+                <select id="priceFilter" aria-label="Filter by price">
+                    <option value="">Free and paid</option>
+                    <option value="free">Free events</option>
+                    <option value="paid">Paid events</option>
+                </select>
+            </div>
+            <div id="eventGrid" class="event-grid"></div>
         </section>
 
-        <section class="workspace lower-workspace">
-            <article id="announcements" class="panel">
-                <div class="section-heading">
-                    <div>
-                        <p class="section-kicker">News</p>
-                        <h2>Announcements</h2>
-                    </div>
-                    <span class="route-pill">GET /announcements</span>
+        <section id="my-space" class="content-section section-shell private-section hidden">
+            <div class="dashboard-banner">
+                <div>
+                    <p class="eyebrow">Student dashboard</p>
+                    <h2 id="studentGreeting">Your registrations</h2>
+                    <p>Every request and approval update is collected here.</p>
                 </div>
-                <form id="announcementForm" class="form-grid compact-form">
-                    <input name="title" type="text" placeholder="Announcement title" required>
-                    <input name="club" type="text" placeholder="Club or General">
-                    <textarea name="content" rows="4" placeholder="Write announcement..." required></textarea>
-                    <button type="submit">Post announcement</button>
-                </form>
-                <div id="announcementList" class="card-list"></div>
-            </article>
+                <div class="dashboard-metrics">
+                    <div><strong id="myRegistrationCount">0</strong><span>Total</span></div>
+                    <div><strong id="approvedCount">0</strong><span>Approved</span></div>
+                    <div><strong id="pendingCount">0</strong><span>Pending</span></div>
+                </div>
+            </div>
+            <div id="myRegistrationList" class="registration-grid"></div>
+        </section>
 
-            <article id="attendance" class="panel">
-                <div class="section-heading">
-                    <div>
-                        <p class="section-kicker">Tracking</p>
-                        <h2>Attendance</h2>
-                    </div>
-                    <span class="route-pill">GET /attendance</span>
+        <section id="clubs" class="content-section section-shell soft-section">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">Meet your people</p>
+                    <h2>Clubs building campus culture</h2>
                 </div>
-                <form id="attendanceForm" class="form-grid compact-form">
-                    <input name="event_id" type="text" placeholder="Event ID" required>
-                    <input name="student_email" type="email" placeholder="student@campus.edu" required>
-                    <input name="date" type="date">
-                    <select name="status">
-                        <option value="present">Present</option>
-                        <option value="absent">Absent</option>
-                    </select>
-                    <button type="submit">Mark attendance</button>
-                </form>
-                <div class="filter-row">
-                    <input id="attendanceEventFilter" type="text" placeholder="Filter by event ID">
-                    <button id="loadAttendanceButton" class="ghost-button" type="button">Load records</button>
+            </div>
+            <div id="clubList" class="club-grid"></div>
+        </section>
+
+        <section id="updates" class="content-section section-shell">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">Notice board</p>
+                    <h2>Latest from campus</h2>
                 </div>
-                <div id="attendanceList" class="card-list"></div>
-            </article>
+            </div>
+            <div id="announcementList" class="announcement-grid"></div>
+        </section>
+
+        <section id="admin" class="content-section section-shell admin-section hidden">
+            <div class="admin-heading">
+                <div>
+                    <p class="eyebrow">Admin console</p>
+                    <h2>Run your campus events</h2>
+                    <p>Create polished event listings and review student requests from one workspace.</p>
+                </div>
+                <span class="admin-badge">Admin access</span>
+            </div>
+
+            <div class="admin-layout">
+                <aside class="admin-sidebar">
+                    <button class="admin-tab active" data-admin-tab="requests" type="button">Approval queue <span id="requestBadge">0</span></button>
+                    <button class="admin-tab" data-admin-tab="create-event" type="button">Create event</button>
+                    <button class="admin-tab" data-admin-tab="publish-update" type="button">Publish update</button>
+                    <button class="admin-tab" data-admin-tab="create-club" type="button">Add club</button>
+                </aside>
+
+                <div class="admin-workspace">
+                    <section class="admin-panel active" data-admin-panel="requests">
+                        <div class="panel-heading">
+                            <div><h3>Registration approvals</h3><p>Verify payments where required, then accept or reject requests.</p></div>
+                            <button id="refreshAdminButton" class="button button-light" type="button">Refresh</button>
+                        </div>
+                        <div id="approvalList" class="approval-list"></div>
+                    </section>
+
+                    <section class="admin-panel" data-admin-panel="create-event">
+                        <div class="panel-heading"><div><h3>Create a new event</h3><p>Use an online cover image and upload your payment scanner directly for paid events.</p></div></div>
+                        <form id="eventForm" class="pro-form">
+                            <label>Event title<input name="title" type="text" placeholder="Annual design summit" required></label>
+                            <label>Host club<input name="club" type="text" placeholder="Design Circle"></label>
+                            <label>Category<input name="category" type="text" placeholder="Workshop"></label>
+                            <label>Date<input name="date" type="date" required></label>
+                            <label>Time<input name="time" type="text" placeholder="10:00 AM - 4:00 PM"></label>
+                            <label>Venue<input name="location" type="text" placeholder="Main auditorium"></label>
+                            <label>Capacity<input name="capacity" type="number" min="1" placeholder="120"></label>
+                            <label>Registration type
+                                <select id="registrationMode" name="registration_mode">
+                                    <option value="free">Free event</option>
+                                    <option value="paid">Paid event</option>
+                                </select>
+                            </label>
+                            <label>Event cover image<input id="eventCoverFile" type="file" accept="image/png,image/jpeg,image/webp"><img id="eventCoverPreview" class="cover-preview hidden" alt="Selected event cover preview"></label>
+                            <label>Or cover image URL<input name="image_url" type="url" placeholder="https://images.unsplash.com/..."></label>
+                            <div id="paymentFields" class="form-subgrid wide hidden">
+                                <label>Ticket price<input name="price" type="number" min="1" placeholder="299"></label>
+                                <label>Payment scanner image<input id="paymentQrFile" type="file" accept="image/png,image/jpeg,image/webp"><img id="paymentQrPreview" class="scanner-preview hidden" alt="Selected payment scanner preview"></label>
+                                <label>Or scanner image URL<input name="payment_qr_url" type="url" placeholder="https://your-image-host.com/scanner.png"></label>
+                            </div>
+                            <label class="wide">Description<textarea name="description" rows="4" placeholder="Tell students why this event deserves a place on their calendar."></textarea></label>
+                            <button class="button button-primary wide" type="submit">Publish event</button>
+                        </form>
+                    </section>
+
+                    <section class="admin-panel" data-admin-panel="publish-update">
+                        <div class="panel-heading"><div><h3>Publish an announcement</h3><p>Share a clear update with everyone on campus.</p></div></div>
+                        <form id="announcementForm" class="pro-form single-column">
+                            <label>Announcement title<input name="title" type="text" placeholder="Registrations close this Friday" required></label>
+                            <label>Club or group<input name="club" type="text" placeholder="General"></label>
+                            <label>Message<textarea name="content" rows="5" placeholder="Write your announcement..." required></textarea></label>
+                            <button class="button button-primary" type="submit">Publish announcement</button>
+                        </form>
+                    </section>
+
+                    <section class="admin-panel" data-admin-panel="create-club">
+                        <div class="panel-heading"><div><h3>Add a campus club</h3><p>Make student communities easier to discover.</p></div></div>
+                        <form id="clubForm" class="pro-form single-column">
+                            <label>Club name<input name="name" type="text" placeholder="Creative Coding Club" required></label>
+                            <label>Description<textarea name="description" rows="4" placeholder="What does this club do?"></textarea></label>
+                            <button class="button button-primary" type="submit">Create club</button>
+                        </form>
+                    </section>
+                </div>
+            </div>
         </section>
     </main>
+
+    <footer>
+        <a class="brand" href="#home"><span class="brand-mark">C</span><span>campusly</span></a>
+        <p>Campus experiences, thoughtfully organized.</p>
+    </footer>
+
+    <div id="authModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+        <div class="modal-backdrop" data-close-modal="auth"></div>
+        <section class="modal-card auth-modal-card">
+            <button class="modal-close" data-close-modal="auth" type="button" aria-label="Close">&times;</button>
+            <div class="auth-intro">
+                <p class="eyebrow">Welcome to campusly</p>
+                <h2 id="authTitle">Your campus starts here.</h2>
+                <p>Discover events, send registrations and get approval updates in your personal dashboard.</p>
+            </div>
+            <div class="auth-tabs">
+                <button class="auth-tab active" data-auth-tab="login" type="button">Log in</button>
+                <button class="auth-tab" data-auth-tab="signup" type="button">Create account</button>
+            </div>
+            <form id="loginForm" class="auth-form active" data-auth-form="login">
+                <label>Email address<input name="email" type="email" placeholder="you@campus.edu" required></label>
+                <label>Password<input name="password" type="password" placeholder="Your password" required></label>
+                <button class="button button-primary" type="submit">Log in to campusly</button>
+            </form>
+            <form id="signupForm" class="auth-form" data-auth-form="signup">
+                <label>Full name<input name="name" type="text" placeholder="Your name" required></label>
+                <label>Email address<input name="email" type="email" placeholder="you@campus.edu" required></label>
+                <label>Password<input name="password" type="password" minlength="6" placeholder="Minimum 6 characters" required></label>
+                <label>Account type
+                    <select id="signupRole" name="role">
+                        <option value="student">Student</option>
+                        <option value="admin">Campus admin</option>
+                    </select>
+                </label>
+                <label id="adminCodeField" class="hidden">Private staff code<input name="admin_code" type="password" placeholder="Enter your staff access code"></label>
+                <button class="button button-primary" type="submit">Create my account</button>
+            </form>
+        </section>
+    </div>
+
+    <div id="eventModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="eventModalTitle">
+        <div class="modal-backdrop" data-close-modal="event"></div>
+        <section class="modal-card event-modal-card">
+            <button class="modal-close" data-close-modal="event" type="button" aria-label="Close">&times;</button>
+            <div id="eventModalBody"></div>
+        </section>
+    </div>
 
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
     <script src="script.js"></script>
